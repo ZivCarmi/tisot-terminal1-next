@@ -1,0 +1,49 @@
+{
+  "Metadata": {
+    "Common": {
+      "pageKeywords": "departures, arrivals, flights, Terminal 1 Ben Gurion Airport, flight board, takeoff, landing"
+    },
+    "Departures": {
+      "pageTitle": "Departures Terminal 1 Ben Gurion Airport",
+      "pageDescription": "Live departure information for Terminal 1 Ben Gurion Airport: flight times, gates, delays and updates.",
+      "pageOg": "Departures Terminal 1 Ben Gurion Airport – Live Flight Board"
+    },
+    "Arrivals": {
+      "pageTitle": "Arrivals Terminal 1 Ben Gurion Airport",
+      "pageDescription": "Live arrival information for Terminal 1 Ben Gurion Airport: landing times, baggage claim, delays and updates.",
+      "pageOg": "Arrivals Terminal 1 Ben Gurion Airport – Live Flight Board"
+    }
+  },
+  "HomePage": {
+    "title": "Terminal 1",
+    "description": "Ben Gurion Airport - Real-time flight information"
+  },
+  "tabs": {
+    "departuresLabel": "Departures",
+    "arrivalsLabel": "Arrivals",
+    "departuresTitle": "Departures from Terminal 1",
+    "arrivalsTitle": "Arrivals to Terminal 1",
+    "defaultTitle": "Terminal 1 Flights"
+  },
+  "flightList": {
+    "flightsNotFound": "No flights found",
+    "noScheduleFlights": "There are currently no scheduled flights for Terminal 1.",
+    "flightsLoadingError": "Error loading flights",
+    "flightsTryAgain": "Try again"
+  },
+  "flightTable": {
+    "airline": "Airline",
+    "flight": "Flight",
+    "destinationTo": "Destination",
+    "destinationFrom": "From",
+    "origin": "Origin",
+    "scheduled": "Scheduled",
+    "actual": "Actual",
+    "status": "Status",
+    "terminal": "Terminal",
+    "benGurion": "Ben Gurion",
+    "checkInCounter": "Check-in counter",
+    "checkInArea": "Check-in area",
+    "notSpecified": "Not specified"
+  }
+}

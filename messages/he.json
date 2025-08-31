@@ -1,0 +1,49 @@
+{
+  "Metadata": {
+    "Common": {
+      "pageKeywords": "טיסות יוצאות, טיסות נכנסות, נתב\"ג טרמינל 1, לוח טיסות, המראות, נחיתות"
+    },
+    "Departures": {
+      "pageTitle": "טיסות יוצאות מטרמינל 1 נתב\"ג",
+      "pageDescription": "מידע בזמן אמת על טיסות יוצאות מטרמינל 1 נתב\"ג: זמני המראה, שערים, עיכובים ועדכונים חיים.",
+      "pageOg": "טיסות יוצאות מטרמינל 1 נתב\"ג – לוח טיסות בזמן אמת"
+    },
+    "Arrivals": {
+      "pageTitle": "טיסות נכנסות מטרמינל 1 נתב\"ג",
+      "pageDescription": "טיסות נכנסות לטרמינל 1 נתב\"ג: זמני נחיתה, מסועי מזוודות, עיכובים ועדכונים בזמן אמת.",
+      "pageOg": "טיסות נכנסות מטרמינל 1 נתב\"ג – לוח טיסות בזמן אמת"
+    }
+  },
+  "HomePage": {
+    "title": "טרמינל 1",
+    "description": "שדה התעופה בן גוריון - מידע טיסות בזמן אמת"
+  },
+  "tabs": {
+    "departuresLabel": "המראות",
+    "arrivalsLabel": "נחיתות",
+    "departuresTitle": "טיסות יוצאות מטרמינל 1",
+    "arrivalsTitle": "טיסות נכנסות לטרמינל 1",
+    "defaultTitle": "טיסות טרמינל 1"
+  },
+  "flightList": {
+    "flightsNotFound": "לא נמצאו טיסות",
+    "noScheduleFlights": "אין טיסות מתוזמנות לטרמינל 1 כרגע.",
+    "flightsLoadingError": "שגיאה בטעינת טיסות",
+    "flightsTryAgain": "נסה שוב"
+  },
+  "flightTable": {
+    "airline": "חברת תעופה",
+    "flight": "טיסה",
+    "destinationTo": "יעד",
+    "destinationFrom": "נוחת מ",
+    "origin": "מוצא",
+    "scheduled": "מתוכנן",
+    "actual": "עדכני",
+    "status": "סטטוס",
+    "terminal": "טרמינל",
+    "benGurion": "בן גוריון",
+    "checkInCounter": "דלפק צ'ק-אין",
+    "checkInArea": "אזור צ'ק-אין",
+    "notSpecified": "לא צוין"
+  }
+}
