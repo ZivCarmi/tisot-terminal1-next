@@ -1,36 +1,127 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Terminal 1 Flights - Ben Gurion Airport
+
+A real-time flight information website for Terminal 1 at Ben Gurion Airport, Israel. This application displays departure and arrival information for flights operating from Terminal 1, using data from the Israeli government's open flight API.
+
+## Features
+
+- **Real-time Flight Data**: Fetches flight information from the Israeli government CSV API
+- **Terminal 1 Filtering**: Automatically filters flights to show only Terminal 1 operations
+- **Departures & Arrivals**: Separate pages for departures and arrivals
+- **Responsive Design**: Modern, mobile-friendly interface
+- **Auto-refresh**: Data updates every 15 minutes
+- **Error Handling**: Graceful error handling with retry mechanisms
+
+## Technology Stack
+
+- **React 18** with TypeScript
+- **Next.js** for SEO optimization
+- **Tailwind CSS** for styling
+- **Modern ES6+** features
+
+## Project Structure
+
+```
+src/
+├── api/           # API functions for data fetching
+├── app/           # Router folder based
+├── components/    # React components
+├── i18n/          # Internationalization related code
+├── types/         # TypeScript type definitions
+├── utils/         # Utility functions
+└── App.tsx        # Main application component
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 16+
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd tisot-terminal-1
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open your browser and navigate to `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Building for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+## Data Source
 
-To learn more about Next.js, take a look at the following resources:
+The application fetches flight data from the Israeli government's open data API:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **CSV Endpoint**: https://data.gov.il/dataset/flydata/resource/e83f763b-b7d7-479e-b172-ae981ddc6de5/download/datafile.csv
+- **Data Source**: https://data.gov.il/dataset/flydata
+- **Update Frequency**: Every 15 minutes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Features in Detail
 
-## Deploy on Vercel
+### Flight Information Display
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Flight number and airline
+- Origin and destination
+- Scheduled and actual times
+- Flight status (Scheduled, Delayed, Canceled, etc.)
+- Gate and check-in information
+- Delay information when applicable
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Filtering Options
+
+- **Departures**: Outbound flights from Terminal 1
+- **Arrivals**: Inbound flights to Terminal 1
+
+### Statistics Dashboard
+
+- Flights data update every 15 minutes
+
+## Development
+
+### Adding New Features
+
+1. **New API Functions**: Add to `src/api/`
+2. **New Hooks**: Add to `src/hooks/`
+3. **New Components**: Add to `src/components/`
+4. **New Types**: Add to `src/types/`
+
+### Code Organization
+
+- **API Layer**: Pure data fetching functions
+- **Component Layer**: Reusable UI components
+- **Type Safety**: Comprehensive TypeScript types
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## License
+
+This project is open source and available under the MIT License.
+
+## Support
+
+For questions or issues, please open an issue on the GitHub repository.
