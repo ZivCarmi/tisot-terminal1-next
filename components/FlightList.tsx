@@ -1,4 +1,5 @@
 import fs from "fs/promises";
+import dynamic from "next/dynamic";
 import path from "path";
 import { Suspense } from "react";
 import type { FetchFlightsResult } from "../types/flight";
@@ -6,7 +7,6 @@ import FlightListTableBody from "./FlightListTableBody";
 import FlightListTableBodySkeleton from "./FlightListTableBodySkeleton";
 import FlightListTableHead from "./FlightListTableHead";
 import FlightListTitle from "./FlightListTitle";
-import FlightsUpdatedAt from "./FlightsUpdatedAt";
 import FlightTypeTabs from "./FlightTypeTabs";
 
 export async function FlightList({
@@ -17,6 +17,9 @@ export async function FlightList({
   const filePath = path.join(process.cwd(), "data", "last-updated.json");
   const fileContent = await fs.readFile(filePath, "utf-8");
   const { lastUpdated } = JSON.parse(fileContent);
+  const FlightsUpdatedAt = dynamic(() => import("./FlightsUpdatedAt"), {
+    ssr: false,
+  });
 
   return (
     <div className="overflow-x-auto rounded-lg shadow bg-white">

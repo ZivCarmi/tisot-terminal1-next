@@ -29,7 +29,8 @@
     "flightsNotFound": "לא נמצאו טיסות",
     "noScheduleFlights": "אין טיסות מתוזמנות לטרמינל 1 כרגע.",
     "flightsLoadingError": "שגיאה בטעינת טיסות",
-    "flightsTryAgain": "נסה שוב"
+    "flightsTryAgain": "נסה שוב",
+    "lastUpdated": "עדכון אחרון ב"
   },
   "flightTable": {
     "airline": "חברת תעופה",

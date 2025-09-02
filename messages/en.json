@@ -29,7 +29,8 @@
     "flightsNotFound": "No flights found",
     "noScheduleFlights": "There are currently no scheduled flights for Terminal 1.",
     "flightsLoadingError": "Error loading flights",
-    "flightsTryAgain": "Try again"
+    "flightsTryAgain": "Try again",
+    "lastUpdated": "Last update at"
   },
   "flightTable": {
     "airline": "Airline",
