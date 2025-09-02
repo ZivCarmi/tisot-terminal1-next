@@ -6,9 +6,9 @@ import path from "path";
 const filePath = path.join(process.cwd(), "data", "last-updated.json");
 
 export async function POST(request: NextRequest) {
-  const secret = request.nextUrl.searchParams.get("secret");
+  const token = request.nextUrl.searchParams.get("token");
 
-  if (secret !== process.env.MY_SECRET_TOKEN) {
+  if (token !== process.env.UPDATE_TOKEN_SECRET) {
     return new NextResponse(JSON.stringify({ message: "Invalid Token" }), {
       status: 401,
       statusText: "Unauthorized",
