@@ -1,36 +1,33 @@
-import type { Flight } from "../types/flight";
-import FlightListNotFound from "./FlightListNotFound";
+import { Suspense } from "react";
+import type { FetchFlightsResult } from "../types/flight";
 import FlightListTableBody from "./FlightListTableBody";
+import FlightListTableBodySkeleton from "./FlightListTableBodySkeleton";
 import FlightListTableHead from "./FlightListTableHead";
 import FlightListTitle from "./FlightListTitle";
+import FlightsUpdatedAt from "./FlightsUpdatedAt";
 import FlightTypeTabs from "./FlightTypeTabs";
 
-interface FlightListProps {
-  flights: Flight[];
-}
-
-export function FlightList({ flights }: FlightListProps) {
-  // Sort flights by scheduled time (CHSTOL)
-  const sortedFlights = [...flights].sort((a, b) => {
-    const aTime = new Date(a.CHSTOL).getTime();
-    const bTime = new Date(b.CHSTOL).getTime();
-
-    return aTime - bTime;
-  });
-
-  if (sortedFlights.length === 0) {
-    return <FlightListNotFound />;
-  }
-
+export async function FlightList({
+  fetchFlights,
+}: {
+  fetchFlights: () => Promise<FetchFlightsResult>;
+}) {
   return (
     <div className="overflow-x-auto rounded-lg shadow bg-white">
       <div className="flex items-center gap-4 justify-between p-4">
-        <FlightListTitle />
+        <div>
+          <FlightListTitle />
+          <span>
+            עדכון אחרון ב - <FlightsUpdatedAt />
+          </span>
+        </div>
         <FlightTypeTabs />
       </div>
       <table className="min-w-full divide-y divide-gray-200">
         <FlightListTableHead />
-        <FlightListTableBody flights={sortedFlights} />
+        <Suspense fallback={<FlightListTableBodySkeleton />}>
+          <FlightListTableBody fetchFlights={fetchFlights} />
+        </Suspense>
       </table>
     </div>
   );

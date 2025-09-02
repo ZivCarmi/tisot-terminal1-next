@@ -20,7 +20,7 @@ const FlightStatus = ({ status }: { status: string }) => {
       case "final":
         return "סופי";
       case "delayed":
-        return "מעוכבת";
+        return "עיכוב";
       case "canceled":
         return "בוטלה";
       case "not final":

@@ -1,4 +1,4 @@
-import { fetchArrivals } from "@/api/flights";
+import { fetchArrivals } from "../actions";
 import { FlightList } from "@/components/FlightList";
 import { getTranslations } from "next-intl/server";
 
@@ -21,9 +21,7 @@ export async function generateMetadata({
 }
 
 const ArrivalsPage = async () => {
-  const flights = await fetchArrivals();
-
-  return <FlightList flights={flights} />;
+  return <FlightList fetchFlights={fetchArrivals} />;
 };
 
 export default ArrivalsPage;

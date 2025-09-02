@@ -32,6 +32,12 @@ export interface FlightFilters {
   date?: string;
 }
 
+export type FetchFlightsResult = Flight[];
+
+export interface FetchUpdatedAt {
+  lastUpdated: Date | null;
+}
+
 export interface FlightApiResponse {
   help: string;
   success: boolean;

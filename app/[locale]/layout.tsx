@@ -1,6 +1,6 @@
 import { Header } from "@/components/Header";
 import { routing } from "@/i18n/routing";
-import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Roboto } from "next/font/google";
 import { notFound } from "next/navigation";
@@ -47,16 +47,14 @@ export default async function RootLayout({
       className={`antialiased ${roboto.className}`}
     >
       <body className="selection:bg-amber-400">
-        <NextIntlClientProvider>
-          <Providers>
-            <div className="min-h-screen bg-gray-50">
-              <Header />
-              <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                {children}
-              </main>
-            </div>
-          </Providers>
-        </NextIntlClientProvider>
+        <Providers>
+          <div className="min-h-screen bg-gray-50">
+            <Header />
+            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+              {children}
+            </main>
+          </div>
+        </Providers>
       </body>
     </html>
   );
