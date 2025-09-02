@@ -26,6 +26,8 @@ export async function POST(request: NextRequest) {
 
     revalidateTag("flights");
 
+    console.log("Updated last-updated.json with timestamp:", now);
+
     return NextResponse.json({
       message: "Timestamp updated",
       lastUpdated: now,
