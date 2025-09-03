@@ -25,6 +25,7 @@ export async function POST(request: NextRequest) {
     await fs.writeFile(filePath, JSON.stringify(data, null, 2), "utf-8");
 
     revalidateTag("flights");
+    revalidateTag("lastUpdate");
 
     console.log("Updated last-updated.json with timestamp:", now);
 

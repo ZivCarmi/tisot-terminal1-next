@@ -1,4 +1,5 @@
-import fs from "fs/promises";
+import { fetchLastUpdated } from "@/app/[locale]/actions";
+import { formatFlightTime } from "@/utils/dateUtils";
 import { Suspense } from "react";
 import type { FetchFlightsResult } from "../types/flight";
 import FlightListTableBody from "./FlightListTableBody";
@@ -13,18 +14,20 @@ export async function FlightList({
 }: {
   fetchFlights: () => Promise<FetchFlightsResult>;
 }) {
-  const fileContent = await fs.readFile(
-    process.cwd() + "/data/last-updated.json",
-    "utf8"
-  );
-  const { lastUpdated } = JSON.parse(fileContent);
+  // const fileContent = await fs.readFile(
+  //   process.cwd() + "/data/last-updated.json",
+  //   "utf8"
+  // );
+  // const { lastUpdated } = JSON.parse(fileContent);
 
   return (
     <div className="overflow-x-auto rounded-lg shadow bg-white">
       <div className="flex items-center gap-4 justify-between p-4">
         <div>
           <FlightListTitle />
-          <FlightsUpdatedAt lastUpdated={lastUpdated} />
+          <Suspense fallback={<p>loading...</p>}>
+            <FlightsLastUpdate />
+          </Suspense>
         </div>
         <FlightTypeTabs />
       </div>
@@ -36,4 +39,11 @@ export async function FlightList({
       </table>
     </div>
   );
+}
+
+async function FlightsLastUpdate() {
+  const fileContent = await fetchLastUpdated();
+  const { lastUpdated } = JSON.parse(fileContent);
+
+  return <FlightsUpdatedAt>{formatFlightTime(lastUpdated)}</FlightsUpdatedAt>;
 }

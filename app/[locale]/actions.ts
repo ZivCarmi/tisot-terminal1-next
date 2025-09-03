@@ -33,6 +33,19 @@ export async function fetchAllFlights(): Promise<FetchFlightsResult> {
   return filterTerminal1(data.result.records);
 }
 
+export async function fetchLastUpdated() {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/update`,
+    {
+      next: { tags: ["lastUpdate"] },
+      cache: "force-cache",
+    }
+  );
+  if (!response.ok) throw new Error("Failed to fetch last update time");
+  const lastUpdated = await response.json();
+  return lastUpdated;
+}
+
 export async function fetchDepartures(): Promise<FetchFlightsResult> {
   const flights = await fetchAllFlights();
   return flights.filter((f) => f.CHAORD === "D");
