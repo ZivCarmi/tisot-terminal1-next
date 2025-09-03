@@ -1,5 +1,6 @@
 import { Header } from "@/components/Header";
 import { routing } from "@/i18n/routing";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Roboto } from "next/font/google";
@@ -56,6 +57,7 @@ export default async function RootLayout({
           </div>
         </Providers>
       </body>
+      <GoogleAnalytics gaId="G-TDDK0DBZ8F" />
     </html>
   );
 }
