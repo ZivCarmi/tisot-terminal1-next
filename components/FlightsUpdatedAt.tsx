@@ -7,11 +7,10 @@ import { useTranslations } from "next-intl";
 const FlightsUpdatedAt = () => {
   const { lastUpdated } = LastUpdatedJSON;
   const t = useTranslations("flightList");
-  const date = new Date(lastUpdated);
 
   return (
     <span className="text-sm text-neutral-400">
-      {t("lastUpdated")} - {formatFlightTime(date.toLocaleString())}
+      {t("lastUpdated")} - {formatFlightTime(lastUpdated)}
     </span>
   );
 };
