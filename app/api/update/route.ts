@@ -6,11 +6,7 @@ import path from "path";
 const filePath = path.join(process.cwd(), "data", "last-updated.json");
 
 export async function GET() {
-  const file = await fs.readFile(
-    process.cwd() + "/app/last-updated.json",
-    "utf8"
-  );
-
+  const file = await fs.readFile(filePath, "utf8");
   return NextResponse.json(file);
 }
 
