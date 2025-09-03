@@ -1,21 +1,25 @@
+"use server";
+
 import type {
   FetchFlightsResult,
   Flight,
   FlightApiResponse,
   RawFlight,
 } from "@/types/flight";
+import { DateTime } from "luxon";
 
 const API_URL =
   "https://data.gov.il/api/3/action/datastore_search?resource_id=e83f763b-b7d7-479e-b172-ae981ddc6de5&limit=32000"; // No pagination at this moment
 
 // Helper: filter for Terminal 1
 function filterTerminal1(flights: RawFlight[]): Flight[] {
-  const now = new Date();
-  const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000);
+  const israelNow = DateTime.now().setZone("Asia/Jerusalem");
+  const oneHourAgo = israelNow.minus({ hours: 1 });
+
   return flights.filter((f) => {
     if (f.CHTERM !== 1) return false;
-    const chptolDate = new Date(f.CHPTOL);
-    return chptolDate >= oneHourAgo;
+    const flightTime = DateTime.fromISO(f.CHPTOL, { zone: "Asia/Jerusalem" });
+    return flightTime >= oneHourAgo;
   });
 }
 
@@ -27,11 +31,6 @@ export async function fetchAllFlights(): Promise<FetchFlightsResult> {
   if (!response.ok) throw new Error("Failed to fetch flights");
   const data: FlightApiResponse = await response.json();
   return filterTerminal1(data.result.records);
-}
-
-export async function fetchUpdatedAt(): Promise<Date> {
-  const updatedAt = new Date();
-  return updatedAt;
 }
 
 export async function fetchDepartures(): Promise<FetchFlightsResult> {

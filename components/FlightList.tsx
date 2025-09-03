@@ -1,5 +1,3 @@
-import fs from "fs/promises";
-import path from "path";
 import { Suspense } from "react";
 import type { FetchFlightsResult } from "../types/flight";
 import FlightListTableBody from "./FlightListTableBody";
@@ -14,16 +12,19 @@ export async function FlightList({
 }: {
   fetchFlights: () => Promise<FetchFlightsResult>;
 }) {
-  const filePath = path.join(process.cwd(), "data", "last-updated.json");
-  const fileContent = await fs.readFile(filePath, "utf-8");
-  const { lastUpdated } = JSON.parse(fileContent);
+  // const fileContent = await fs.readFile(
+  //   process.cwd() + "/data/last-updated.json",
+  //   "utf8"
+  // );
+  // const { lastUpdated } = JSON.parse(fileContent);
 
   return (
     <div className="overflow-x-auto rounded-lg shadow bg-white">
       <div className="flex items-center gap-4 justify-between p-4">
         <div>
           <FlightListTitle />
-          <FlightsUpdatedAt lastUpdated={lastUpdated as Date} />
+          <FlightsUpdatedAt />
+          {/* <FlightsUpdatedAt lastUpdated={lastUpdated} /> */}
         </div>
         <FlightTypeTabs />
       </div>
