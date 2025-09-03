@@ -43,8 +43,7 @@
     "status": "סטטוס",
     "terminal": "טרמינל",
     "benGurion": "בן גוריון",
-    "checkInCounter": "דלפק צ'ק-אין",
-    "checkInArea": "אזור צ'ק-אין",
+    "checkInData": "דלפקי צ'ק-אין",
     "notSpecified": "לא צוין"
   }
 }

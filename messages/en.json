@@ -43,8 +43,7 @@
     "status": "Status",
     "terminal": "Terminal",
     "benGurion": "Ben Gurion",
-    "checkInCounter": "Check-in counter",
-    "checkInArea": "Check-in area",
+    "checkInData": "Check-in counters",
     "notSpecified": "Not specified"
   }
 }

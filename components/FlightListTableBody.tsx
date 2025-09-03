@@ -22,7 +22,7 @@ const FlightListTableBody = async ({
   }
 
   return (
-    <tbody className="bg-white divide-y divide-gray-100">
+    <tbody className="bg-white divide-y divide-gray-200">
       <FlightListTableBodyData flights={flights} />
     </tbody>
   );
