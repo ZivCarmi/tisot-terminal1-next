@@ -5,6 +5,15 @@ import path from "path";
 
 const filePath = path.join(process.cwd(), "data", "last-updated.json");
 
+export async function GET() {
+  const file = await fs.readFile(
+    process.cwd() + "/app/last-updated.json",
+    "utf8"
+  );
+
+  return NextResponse.json(file);
+}
+
 export async function POST(request: NextRequest) {
   const token = request.nextUrl.searchParams.get("token");
 
