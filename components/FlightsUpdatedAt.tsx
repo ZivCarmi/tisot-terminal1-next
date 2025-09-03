@@ -1,12 +1,17 @@
 "use client";
 
-import LastUpdatedJSON from "@/data/last-updated.json";
 import { formatFlightTime } from "@/utils/dateUtils";
 import { useTranslations } from "next-intl";
+// import dynamic from "next/dynamic";
 
-const FlightsUpdatedAt = () => {
-  const { lastUpdated } = LastUpdatedJSON;
+const FlightsUpdatedAt = ({ lastUpdated }: { lastUpdated: string }) => {
   const t = useTranslations("flightList");
+  // const FlightsUpdatedAtNoSSR = dynamic(
+  //   () => import("./FlightsUpdatedAt").then((m) => m.FlightsUpdatedAtNoSSR),
+  //   {
+  //     ssr: false,
+  //   }
+  // );
 
   return (
     <span className="text-sm text-neutral-400">
@@ -15,34 +20,12 @@ const FlightsUpdatedAt = () => {
   );
 };
 
-// const FlightsUpdatedAt = ({ lastUpdated }: { lastUpdated: string }) => {
-//   const FlightsUpdatedAtNoSSR = dynamic(
-//     () => import("./FlightsUpdatedAt").then((m) => m.FlightsUpdatedAtNoSSR),
-//     {
-//       ssr: false,
-//     }
-//   );
-
-//   return (
-//     <Suspense fallback={<p>test....</p>}>
-//       <FlightsUpdatedAtNoSSR lastUpdated={lastUpdated} />
-//     </Suspense>
-//   );
-// };
-
 // export const FlightsUpdatedAtNoSSR = ({
 //   lastUpdated,
 // }: {
 //   lastUpdated: string;
 // }) => {
-//   const date = new Date(lastUpdated);
-//   const t = useTranslations("flightList");
-
-//   return (
-//     <span className="text-sm text-neutral-400">
-//       {t("lastUpdated")} - {formatFlightTime(date.toLocaleString())}
-//     </span>
-//   );
+//   return formatFlightTime(lastUpdated);
 // };
 
 export default FlightsUpdatedAt;
