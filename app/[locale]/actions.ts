@@ -4,12 +4,16 @@ import type {
   FetchFlightsResult,
   Flight,
   FlightApiResponse,
+  FlightsData,
   RawFlight,
 } from "@/types/flight";
 import { DateTime } from "luxon";
+import fs from "fs/promises";
+import path from "path";
 
 const API_URL =
   "https://data.gov.il/api/3/action/datastore_search?resource_id=e83f763b-b7d7-479e-b172-ae981ddc6de5&limit=32000"; // No pagination at this moment
+const flightsJsonPath = path.join(process.cwd(), "data", "flights.json");
 
 // Helper: filter for Terminal 1
 function filterTerminal1(flights: RawFlight[]): Flight[] {
@@ -33,20 +37,102 @@ export async function fetchAllFlights(): Promise<FetchFlightsResult> {
   return filterTerminal1(data.result.records);
 }
 
-export async function fetchLastUpdated() {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/update`,
-    {
-      next: { tags: ["lastUpdate"] },
-      cache: "force-cache",
-    }
+export async function fetchAndUpdateFlights() {
+  const response = await fetch(API_URL);
+  if (!response.ok) throw new Error("Failed to fetch flights");
+
+  const data: FlightApiResponse = await response.json();
+  const now = new Date().toISOString();
+
+  await fs.writeFile(
+    flightsJsonPath,
+    JSON.stringify({ flights: data.result.records, lastUpdated: now }, null, 2),
+    "utf-8"
   );
-  if (!response.ok) throw new Error("Failed to fetch last update time");
-  const lastUpdated = await response.json();
-  return lastUpdated;
+}
+
+export async function getFlightsData(): Promise<FlightsData> {
+  const json = await fs.readFile(flightsJsonPath, "utf8");
+  const { flights, lastUpdated }: FlightsData = JSON.parse(json);
+  return {
+    flights: filterTerminal1(flights),
+    lastUpdated,
+  };
+}
+
+export async function getDepartures() {
+  const { flights } = await getFlightsData();
+  return flights.filter((f) => f.CHAORD === "D");
+}
+
+export async function getArrivals() {
+  const { flights } = await getFlightsData();
+  return flights.filter((f) => f.CHAORD === "D");
 }
 
 export async function fetchDepartures(): Promise<FetchFlightsResult> {
+  // let flights: FetchFlightsResult = [
+  //   {
+  //     _id: 719,
+  //     CHOPER: "6H",
+  //     CHFLTN: "115",
+  //     CHOPERD: "ISRAIR AIRLINES",
+  //     CHSTOL: "2025-09-08T12:35:00",
+  //     CHPTOL: "2025-09-08T13:05:00",
+  //     CHAORD: "D",
+  //     CHLOC1: "LTN",
+  //     CHLOC1D: "LUTON",
+  //     CHLOC1TH: "לונדון לוטון",
+  //     CHLOC1T: "LONDON LUTON",
+  //     CHLOC1CH: "בריטניה",
+  //     CHLOCCT: "UNITED KINGDOM",
+  //     CHTERM: 1,
+  //     CHCINT: "316-320",
+  //     CHCKZN: "A",
+  //     CHRMINE: "DEPARTED",
+  //     CHRMINH: "המריאה",
+  //   },
+  //   {
+  //     _id: 720,
+  //     CHOPER: "LY",
+  //     CHFLTN: "211",
+  //     CHOPERD: "EL AL",
+  //     CHSTOL: "2025-09-08T14:20:00",
+  //     CHPTOL: "2025-09-08T14:50:00",
+  //     CHAORD: "D",
+  //     CHLOC1: "CDG",
+  //     CHLOC1D: "PARIS",
+  //     CHLOC1TH: "פריז שארל דה גול",
+  //     CHLOC1T: "PARIS CHARLES DE GAULLE",
+  //     CHLOC1CH: "צרפת",
+  //     CHLOCCT: "FRANCE",
+  //     CHTERM: 1,
+  //     CHCINT: "321-325",
+  //     CHCKZN: "B",
+  //     CHRMINE: "DEPARTED",
+  //     CHRMINH: "המריאה",
+  //   },
+  //   {
+  //     _id: 721,
+  //     CHOPER: "WF",
+  //     CHFLTN: "330",
+  //     CHOPERD: "WINGS AIR",
+  //     CHSTOL: "2025-09-08T15:10:00",
+  //     CHPTOL: "2025-09-08T15:40:00",
+  //     CHAORD: "D",
+  //     CHLOC1: "FCO",
+  //     CHLOC1D: "ROME",
+  //     CHLOC1TH: "רומא פיומיצ'ינו",
+  //     CHLOC1T: "ROME FIUMICINO",
+  //     CHLOC1CH: "איטליה",
+  //     CHLOCCT: "ITALY",
+  //     CHTERM: 1,
+  //     CHCINT: "326-330",
+  //     CHCKZN: "C",
+  //     CHRMINE: "DEPARTED",
+  //     CHRMINH: "המריאה",
+  //   },
+  // ];
   const flights = await fetchAllFlights();
   return flights.filter((f) => f.CHAORD === "D");
 }
@@ -83,26 +169,5 @@ export async function fetchFlightsByAirline(
   );
 }
 
-export async function fetchFlightStats(): Promise<{
-  total_flights: number;
-  departures: number;
-  arrivals: number;
-  delayed_flights: number;
-  cancelled_flights: number;
-}> {
-  try {
-    const response = await fetch(`http://localhost:3001/api/flights/stats`);
-
-    if (!response.ok) {
-      throw new Error(
-        `Failed to fetch flight stats: ${response.status} ${response.statusText}`
-      );
-    }
-
-    const data = await response.json();
-    return data.data;
-  } catch (error) {
-    console.error("Error fetching flight stats:", error);
-    throw error;
-  }
-}
+// Initial api call to write flights to the json (so we won't have empty flights)
+fetchAndUpdateFlights();

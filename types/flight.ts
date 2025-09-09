@@ -1,7 +1,7 @@
 export interface RawFlight {
   _id: number;
   CHOPER: string; // Airline code
-  CHFLTN: number; // Flight number
+  CHFLTN: string; // Flight number
   CHOPERD: string; // Airline name
   CHSTOL: string; // Scheduled time (ISO)
   CHPTOL: string; // Actual time (ISO)
@@ -33,6 +33,11 @@ export interface FlightFilters {
 }
 
 export type FetchFlightsResult = Flight[];
+
+export type FlightsData = {
+  flights: Flight[];
+  lastUpdated: string;
+};
 
 export interface FlightApiResponse {
   help: string;

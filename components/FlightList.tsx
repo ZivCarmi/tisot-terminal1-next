@@ -1,49 +1,23 @@
-import { fetchLastUpdated } from "@/app/[locale]/actions";
-import { formatFlightTime } from "@/utils/dateUtils";
-import { Suspense } from "react";
-import type { FetchFlightsResult } from "../types/flight";
-import FlightListTableBody from "./FlightListTableBody";
-import FlightListTableBodySkeleton from "./FlightListTableBodySkeleton";
-import FlightListTableHead from "./FlightListTableHead";
+import { getFlightsData } from "@/app/[locale]/actions";
+import type { Flight } from "../types/flight";
+import FlightListTable from "./FlightListTable";
 import FlightListTitle from "./FlightListTitle";
 import FlightTypeTabs from "./FlightTypeTabs";
 import FlightsUpdatedAt from "./FlightsUpdatedAt";
 
-export async function FlightList({
-  fetchFlights,
-}: {
-  fetchFlights: () => Promise<FetchFlightsResult>;
-}) {
-  // const fileContent = await fs.readFile(
-  //   process.cwd() + "/data/last-updated.json",
-  //   "utf8"
-  // );
-  // const { lastUpdated } = JSON.parse(fileContent);
+export async function FlightList({ flights }: { flights: Flight[] }) {
+  const { lastUpdated } = await getFlightsData();
 
   return (
     <div className="overflow-x-auto rounded-lg shadow bg-white">
       <div className="flex items-center gap-4 justify-between p-4">
         <div>
           <FlightListTitle />
-          <Suspense fallback={<p>loading...</p>}>
-            <FlightsLastUpdate />
-          </Suspense>
+          <FlightsUpdatedAt initLastUpdated={lastUpdated} />
         </div>
         <FlightTypeTabs />
       </div>
-      <table className="min-w-full divide-y divide-gray-200">
-        <FlightListTableHead />
-        <Suspense fallback={<FlightListTableBodySkeleton />}>
-          <FlightListTableBody fetchFlights={fetchFlights} />
-        </Suspense>
-      </table>
+      <FlightListTable flights={flights} />
     </div>
   );
-}
-
-async function FlightsLastUpdate() {
-  const fileContent = await fetchLastUpdated();
-  const { lastUpdated } = JSON.parse(fileContent);
-
-  return <FlightsUpdatedAt>{formatFlightTime(lastUpdated)}</FlightsUpdatedAt>;
 }

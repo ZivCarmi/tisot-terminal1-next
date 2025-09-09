@@ -1,7 +1,6 @@
 "use client"; // Error boundaries must be Client Components
 
 import { useTranslations } from "next-intl";
-import { useEffect } from "react";
 
 export default function Error({
   error,
@@ -12,10 +11,7 @@ export default function Error({
 }) {
   const t = useTranslations("flightList");
 
-  useEffect(() => {
-    // Log the error to an error reporting service
-    console.error(error);
-  }, [error]);
+  console.error(error);
 
   return (
     <div className="text-center py-8">

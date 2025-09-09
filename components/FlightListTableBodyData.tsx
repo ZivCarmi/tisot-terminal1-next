@@ -6,11 +6,7 @@ import { formatFlightDate, formatFlightTime } from "../utils/dateUtils";
 import FlightStatus from "./FlightStatus";
 import { useTabs } from "./TabsProvider";
 
-interface FlightListTableBodyDataProps {
-  flights: Flight[];
-}
-
-const FlightListTableBodyData = ({ flights }: FlightListTableBodyDataProps) => {
+const FlightListTableBodyData = ({ flights }: { flights: Flight[] }) => {
   const t = useTranslations("flightTable");
   const locale = useLocale();
   const { isArrivals } = useTabs();

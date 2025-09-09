@@ -53,27 +53,3 @@ export async function fetchFlightsByAirline(
       f.CHOPER.toLowerCase().includes(airline.toLowerCase())
   );
 }
-
-export async function fetchFlightStats(): Promise<{
-  total_flights: number;
-  departures: number;
-  arrivals: number;
-  delayed_flights: number;
-  cancelled_flights: number;
-}> {
-  try {
-    const response = await fetch(`http://localhost:3001/api/flights/stats`);
-
-    if (!response.ok) {
-      throw new Error(
-        `Failed to fetch flight stats: ${response.status} ${response.statusText}`
-      );
-    }
-
-    const data = await response.json();
-    return data.data;
-  } catch (error) {
-    console.error("Error fetching flight stats:", error);
-    throw error;
-  }
-}
