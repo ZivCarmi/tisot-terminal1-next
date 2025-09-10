@@ -5,11 +5,18 @@ import type { Flight } from "../types/flight";
 import { formatFlightDate, formatFlightTime } from "../utils/dateUtils";
 import FlightStatus from "./FlightStatus";
 import { useTabs } from "./TabsProvider";
+import { useFlights } from "./FlightsProvider";
 
-const FlightListTableBodyData = ({ flights }: { flights: Flight[] }) => {
+const FlightListTableBodyData = () => {
   const t = useTranslations("flightTable");
   const locale = useLocale();
   const { isArrivals } = useTabs();
+  const { arrivals, departures } = useFlights();
+  let flights: Flight[] = departures;
+
+  if (isArrivals) {
+    flights = arrivals;
+  }
 
   return flights.map((flight) => (
     <tr key={flight._id}>

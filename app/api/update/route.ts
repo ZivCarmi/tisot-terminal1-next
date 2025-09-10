@@ -26,24 +26,6 @@ export async function GET(request: NextRequest) {
     },
   });
 
-  // const stream = new ReadableStream({
-  //   async start(controller) {
-  //     const encoder = new TextEncoder();
-
-  //     function send(data: any) {
-  //       controller.enqueue(encoder.encode(`data: ${JSON.stringify(data)}\n\n`));
-  //     }
-
-  //     const { flights, lastUpdated } = await getFlightsData();
-
-  //     send({ flights, lastUpdated });
-
-  //     request.signal.addEventListener("abort", () => {
-  //       controller.close();
-  //     });
-  //   },
-  // });
-
   return new Response(stream, {
     headers: {
       "Content-Type": "text/event-stream",
@@ -73,9 +55,13 @@ export async function POST(request: NextRequest) {
 
     await fetchAndUpdateFlights();
 
-    const { flights, lastUpdated } = await getFlightsData();
+    const { departures, arrivals, lastUpdated } = await getFlightsData();
 
-    broadcastUpdate({ flights, lastUpdated });
+    console.log({
+      stats: { departures: departures.length, arrivals: arrivals.length },
+    });
+
+    broadcastUpdate({ departures, arrivals, lastUpdated });
 
     console.log(
       `Flights json updated at ${new Date().toLocaleString("he-IL")}`

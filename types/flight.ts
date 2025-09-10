@@ -32,10 +32,14 @@ export interface FlightFilters {
   date?: string;
 }
 
-export type FetchFlightsResult = Flight[];
+export type FlightsJsonData = {
+  flights: Flight[];
+  lastUpdated: string;
+};
 
 export type FlightsData = {
-  flights: Flight[];
+  departures: Flight[];
+  arrivals: Flight[];
   lastUpdated: string;
 };
 
