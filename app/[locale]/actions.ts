@@ -32,11 +32,15 @@ export async function fetchAndUpdateFlights() {
   if (!response.ok) throw new Error("Failed to fetch flights");
 
   const data: FlightApiResponse = await response.json();
-  const now = new Date().toISOString();
+  const israelNow = DateTime.now().setZone("Asia/Jerusalem");
 
   await fs.writeFile(
     flightsJsonPath,
-    JSON.stringify({ flights: data.result.records, lastUpdated: now }, null, 2),
+    JSON.stringify(
+      { flights: data.result.records, lastUpdated: israelNow },
+      null,
+      2
+    ),
     "utf-8"
   );
 }
