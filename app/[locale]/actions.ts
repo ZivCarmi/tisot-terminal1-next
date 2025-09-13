@@ -19,29 +19,11 @@ const flightsJsonPath = path.join(process.cwd(), "data", "flights.json");
 function filterTerminal1(flights: RawFlight[]): Flight[] {
   const israelNow = DateTime.now().setZone("Asia/Jerusalem");
   const oneHourAgo = israelNow.minus({ hours: 1 });
-  const { offsetNameLong, offsetNameShort, zoneName, hour, minute } = israelNow;
-  let count = 0;
-
-  console.log({
-    israelNow: { offsetNameLong, offsetNameShort, zoneName, hour, minute },
-  });
 
   return flights.filter((f) => {
     if (f.CHTERM !== 1) return false;
     const flightTime = DateTime.fromISO(f.CHPTOL, { zone: "Asia/Jerusalem" });
-
-    if (f.CHAORD === "D" && flightTime >= oneHourAgo && count < 5) {
-      const { offsetNameLong, offsetNameShort, zoneName, hour, minute } =
-        flightTime;
-      console.log({
-        flightTime: { offsetNameLong, offsetNameShort, zoneName, hour, minute },
-      });
-      count++;
-      return true;
-    }
-
-    return false;
-    // return flightTime >= oneHourAgo;
+    return flightTime >= oneHourAgo;
   });
 }
 
