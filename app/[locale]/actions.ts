@@ -28,7 +28,7 @@ function filterTerminal1(flights: RawFlight[]): Flight[] {
 
   return flights.filter((f) => {
     if (f.CHTERM !== 1) return false;
-    const flightTime = DateTime.fromISO(f.CHPTOL);
+    const flightTime = DateTime.fromISO(f.CHPTOL, { setZone: true });
 
     if (f.CHAORD === "D" && flightTime >= oneHourAgo && count < 5) {
       const { offsetNameLong, offsetNameShort, zoneName, hour, minute } =
