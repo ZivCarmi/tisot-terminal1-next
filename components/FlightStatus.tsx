@@ -37,19 +37,19 @@ const FlightStatus = ({ status }: { status: string }) => {
       case "landing":
       case "on time":
       case "final":
-        return "bg-green-100 text-green-800";
+        return "bg-green-100 text-green-700";
       case "delayed":
       case "canceled":
-        return "bg-red-100 text-red-800";
+        return "bg-red-100 text-red-700";
       case "not final":
-        return "bg-yellow-100 text-yellow-800";
+        return "bg-yellow-100 text-yellow-700";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-gray-100 text-gray-700";
     }
   };
 
   return (
-    <td className={`px-4 py-3 whitespace-nowrap`}>
+    <td className="p-2 whitespace-nowrap">
       <span
         className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${getStatusColor()}`}
       >

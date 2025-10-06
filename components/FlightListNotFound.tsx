@@ -1,14 +1,16 @@
-import { getTranslations } from "next-intl/server";
+"use client";
 
-const FlightListNotFound = async () => {
-  const t = await getTranslations("flightList");
+import { useTranslations } from "next-intl";
+
+const FlightListNotFound = () => {
+  const t = useTranslations("flightList");
 
   return (
     <div className="text-center py-8">
-      <div className="text-gray-500 text-lg font-medium mb-2">
+      <div className="text-gray-900 text-lg font-medium mb-2">
         {t("flightsNotFound")}
       </div>
-      <div className="text-gray-400 text-sm">{t("noScheduleFlights")}</div>
+      <div className="text-neutral-400 text-sm">{t("noScheduleFlights")}</div>
     </div>
   );
 };

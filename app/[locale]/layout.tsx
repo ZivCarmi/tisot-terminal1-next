@@ -3,13 +3,13 @@ import { routing } from "@/i18n/routing";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Roboto } from "next/font/google";
+import { Assistant } from "next/font/google";
 import { notFound } from "next/navigation";
 import "./globals.css";
 import Providers from "./providers";
 
-const roboto = Roboto({
-  weight: "400",
+const assistant = Assistant({
+  weight: ["400", "500", "700"],
   subsets: ["latin"],
 });
 
@@ -45,15 +45,13 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={locale === "he" ? "rtl" : "ltr"}
-      className={`antialiased ${roboto.className}`}
+      className={`antialiased ${assistant.className}`}
     >
       <body className="selection:bg-amber-400">
         <Providers>
           <div className="min-h-screen bg-gray-50">
             <Header />
-            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-              {children}
-            </main>
+            <main className="max-w-7xl mx-auto p-6">{children}</main>
           </div>
         </Providers>
       </body>

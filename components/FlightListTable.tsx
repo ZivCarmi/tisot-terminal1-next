@@ -1,20 +1,19 @@
+"use client";
+
 import { Suspense } from "react";
 import FlightListTableBodyData from "./FlightListTableBodyData";
 import FlightListTableBodySkeleton from "./FlightListTableBodySkeleton";
 import FlightListTableHead from "./FlightListTableHead";
+import { useFlights } from "./FlightsProvider";
+import FlightListNotFound from "./FlightListNotFound";
 
 const FlightListTable = () => {
-  // // Sort flights by scheduled time (CHSTOL)
-  // const sortedFlights = [...flights].sort((a, b) => {
-  //   const aTime = new Date(a.CHSTOL).getTime();
-  //   const bTime = new Date(b.CHSTOL).getTime();
+  const { arrivals, departures } = useFlights();
+  const allFlights = [...arrivals, ...departures];
 
-  //   return aTime - bTime;
-  // });
-
-  // if (sortedFlights.length === 0) {
-  //   return <FlightListNotFound />;
-  // }
+  if (allFlights.length === 0) {
+    return <FlightListNotFound />;
+  }
 
   return (
     <table className="min-w-full divide-y divide-gray-200">
@@ -28,7 +27,7 @@ const FlightListTable = () => {
 
 const FlightListTableBody = () => {
   return (
-    <tbody className="bg-white divide-y divide-gray-200">
+    <tbody className="divide-y divide-gray-200">
       <FlightListTableBodyData />
     </tbody>
   );

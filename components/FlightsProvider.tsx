@@ -40,8 +40,6 @@ export function FlightsProvider({
     eventSource.onmessage = (event) => {
       const data = JSON.parse(event.data);
 
-      console.log(data);
-
       setDepartures(data.departures);
       setArrivals(data.arrivals);
       setLastUpdated(data.lastUpdated);
