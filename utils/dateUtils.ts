@@ -1,3 +1,5 @@
+import { DateTime } from "luxon";
+
 export function formatFlightTime(timeString?: string): string {
   if (!timeString) return "N/A";
   try {
@@ -26,42 +28,17 @@ export function formatFlightDate(dateString?: string): string {
   }
 }
 
-export function getTimeDifference(
-  scheduledTime: string,
-  actualTime?: string
-): number {
-  if (!actualTime) return 0;
+export function parseTimestamp(ts: string) {
+  if (!ts) return null;
 
-  try {
-    const scheduled = new Date(scheduledTime);
-    const actual = new Date(actualTime);
-    return Math.round((actual.getTime() - scheduled.getTime()) / (1000 * 60)); // Difference in minutes
-  } catch {
-    return 0;
-  }
-}
+  let dt = DateTime.fromISO(ts, { zone: "Asia/Jerusalem" });
+  if (dt.isValid) return dt;
 
-export function isDelayed(scheduledTime: string, actualTime?: string): boolean {
-  return getTimeDifference(scheduledTime, actualTime) > 0;
-}
+  dt = DateTime.fromFormat(ts, "yyyy-MM-dd HH:mm:ss", {
+    zone: "Asia/Jerusalem",
+  });
+  if (dt.isValid) return dt;
 
-export function getCurrentDate(): string {
-  return new Date().toISOString().split("T")[0];
-}
-
-export function getDateFromString(dateString: string): Date {
-  return new Date(dateString);
-}
-
-export function isToday(dateString: string): boolean {
-  const today = new Date();
-  const date = new Date(dateString);
-  return date.toDateString() === today.toDateString();
-}
-
-export function isTomorrow(dateString: string): boolean {
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const date = new Date(dateString);
-  return date.toDateString() === tomorrow.toDateString();
+  console.warn("Unparsable timestamp:", ts);
+  return null;
 }

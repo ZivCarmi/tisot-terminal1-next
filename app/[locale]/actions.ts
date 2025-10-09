@@ -7,6 +7,7 @@ import type {
   FlightsJsonData,
   RawFlight,
 } from "@/types/flight";
+import { parseTimestamp } from "@/utils/dateUtils";
 import fs from "fs/promises";
 import { DateTime } from "luxon";
 import path from "path";
@@ -22,8 +23,8 @@ function filterTerminal1(flights: RawFlight[]): Flight[] {
 
   return flights.filter((f) => {
     if (f.CHTERM !== 1) return false;
-    const flightTime = DateTime.fromISO(f.CHPTOL, { zone: "Asia/Jerusalem" });
-    return flightTime >= oneHourAgo;
+    const flightTime = parseTimestamp(f.CHPTOL);
+    return flightTime ? flightTime >= oneHourAgo : false;
   });
 }
 
